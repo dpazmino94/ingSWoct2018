@@ -5,7 +5,11 @@
  */
 package ingsoftware;
 
-import java.time.LocalDate;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 /**
  *
@@ -84,9 +88,24 @@ public class IngSoftware extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-       int ahora = 2019;
-        edadLabel.setText("Tu edad es:"+(ahora - Integer.parseInt(edadText.getText()) ));
+
+        int ahora = 2019;
+        edadLabel.setText("Tu edad es:" + (ahora - Integer.parseInt(edadText.getText())));
+
+        Writer writer = null;
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("IngSoftwareArchivoDeTexto.txt"), "utf-8"));
+            writer.write("Tu edad es:" + (ahora - Integer.parseInt(edadText.getText())));
+        } catch (IOException ex) {
+            // Report
+        } finally {
+            try {
+                writer.close();
+            } catch (Exception ex) {/*ignore*/
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
